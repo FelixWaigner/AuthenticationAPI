@@ -34,7 +34,6 @@ router.post("/register", async (req, res) => {
 
 //Login
 router.post("/login", async (req,res) => {
-    //console.log(req);
     //Validation
     const {error} = loginValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
@@ -45,7 +44,7 @@ router.post("/login", async (req,res) => {
 
     //password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if(!validPass) return res.status(400).send("Falcshes Passwort");
+    if(!validPass) return res.status(400).send("Falsches Passwort");
 
     //create jwt
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
